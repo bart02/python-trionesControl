@@ -20,14 +20,14 @@ def disconnect(device):
     log.info("Device disconnected")
 def powerOn(device):
     try:
-        device.char_write_handle(0x0009, b'\xcc\x23\x33')
+        device.char_write_handle(0x0007, b'\xcc\x23\x33')
     except pygatt.exceptions.NotConnectedError:
         raise pygatt.exceptions.NotConnectedError("Device nor connected!")
     log.info("Device powered on")
 
 def powerOff(device):
     try:
-        device.char_write_handle(0x0009, b'\xcc\x24\x33')
+        device.char_write_handle(0x0007, b'\xcc\x24\x33')
     except pygatt.exceptions.NotConnectedError:
         raise pygatt.exceptions.NotConnectedError("Device nor connected!")
     log.info("Device powered off")
@@ -50,7 +50,7 @@ def setRGB(r: int, g: int, b: int, device):
     payload.append(0xF0)
     payload.append(0xAA)
     try:
-        device.char_write_handle(0x0009, payload)
+        device.char_write_handle(0x0007, payload)
     except pygatt.exceptions.NotConnectedError:
         raise pygatt.exceptions.NotConnectedError("Device nor connected!")
     log.info("RGB set -- R: %d, G: %d, B: %d", r, g, b)
@@ -68,7 +68,7 @@ def setWhite(intensity: int, device):
     payload.append(0x0F)
     payload.append(0xAA)
     try:
-        device.char_write_handle(0x0009, payload)
+        device.char_write_handle(0x0007, payload)
     except pygatt.exceptions.NotConnectedError:
         raise pygatt.exceptions.NotConnectedError("Device nor connected!")
     log.info("White color set -- Intensity: %d", intensity)
@@ -84,7 +84,7 @@ def setBuiltIn(mode: int, speed: int, device):
     payload.append(speed)
     payload.append(0x44)
     try:
-        device.char_write_handle(0x0009, payload)
+        device.char_write_handle(0x0007, payload)
     except pygatt.exceptions.NotConnectedError:
         raise pygatt.exceptions.NotConnectedError("Device nor connected!")
     log.info("Default mode %d set -- Speed %d", mode, speed)
